@@ -21,7 +21,7 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inputs de texto'),
+        title: Text('Ingreso de mascota'),
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -34,6 +34,8 @@ class _InputPageState extends State<InputPage> {
           Divider(),
           _crearRaza(),
           Divider(),
+          _crearSexo(),
+          Divider(),
           _crearEdad(),
           Divider(),
           _crearTipoMascota(),
@@ -43,9 +45,9 @@ class _InputPageState extends State<InputPage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: RaisedButton(
-            child: Text('Mostrar Alerta'),
-             color: Colors.cyan,
-            textColor: Colors.black,
+            child: Text('Mostrar Información'),
+             color: Colors.purple,
+            textColor: Colors.white,
             shape: StadiumBorder(),
             onPressed: () => _mostrarAlert(context),
              ),
@@ -58,7 +60,7 @@ class _InputPageState extends State<InputPage> {
 
   Widget _crearInput() {
     return TextField(
-      // autofocus: true,
+      //autofocus: true,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -125,9 +127,24 @@ class _InputPageState extends State<InputPage> {
             }));
   }
 
-  Widget _crearEdad() {
+  Widget _crearSexo() {
     return TextField(
         keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+            hintText: 'Sexo',
+            labelText: 'Sexo',
+            suffixIcon: Icon(Icons.male),
+            icon: Icon(Icons.female)),
+        onChanged: (valor) => setState(() {
+              _sexo = valor;
+            }));
+  }
+
+  Widget _crearEdad() {
+    return TextField(
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -200,9 +217,9 @@ class _InputPageState extends State<InputPage> {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text('Nombre Mascota: $_nombre'),
                 Text('Nombre Dueño: $_nombreduenio'),
                 Text('Telefono: $_telefono'),
+                Text('Nombre Mascota: $_nombre'),
                 Text('Raza: $_raza'),
                 Text('Sexo: $_sexo'),
                 Text('Edad de la mascota: $_edadmascota'),
@@ -218,7 +235,7 @@ class _InputPageState extends State<InputPage> {
               FlatButton(
                 child: Text('Ok'),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(context);
                 },
               ),
             ],
